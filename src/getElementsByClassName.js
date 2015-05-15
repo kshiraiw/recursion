@@ -10,8 +10,8 @@ var getElementsByClassName = function(className
 	return results;
 };
 
-var traverseElement = function(element, className) {
-	var elements = [];
+var traverseElement = function(element, className, elements) {
+	var elements = elements || [];
 	var classes = element.classList;
 	if (classes) {
 		for (var j = 0; j < classes.length; j++) {
@@ -22,10 +22,7 @@ var traverseElement = function(element, className) {
 	}
 	var nodes = element.childNodes;
 	for (var i = 0; i < nodes.length; i++) {
-		var elm = traverseElement(nodes[i], className);
-		for (var k = 0; k < elm.length; k++) {
-			elements.push(elm[k]);
-		}
+		traverseElement(nodes[i], className, elements);
 	}
 	return elements;
 }
